@@ -1,3 +1,7 @@
 requests
 fastapi[standard]
 python-dotenv
+streamlit
+plotly
+fpdf
+pandas
