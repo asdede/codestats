@@ -1,7 +1,6 @@
 import requests
 from dotenv import load_dotenv
 import os
-from hashlib import sha256
 import secrets
 
 load_dotenv() # Temporary
@@ -39,7 +38,7 @@ durations = '/api/v1/users/current/durations'
 def get_langs():
     languanges= '/api/v1/program_languages'
     res = request(languanges)
-    print(res)
+    return res
 
 def get_stats():
     stats='/api/v1/users/current/stats'
@@ -71,6 +70,10 @@ def get_stats():
     stats['editors'] = editor_stats
     return stats
 
+def get_weekly_stats():
+    weekly_stats = '/api/v1/stats/last_7_days'
+    #TODO
+
 
 def request(req):
     res = requests.get(base_url+req,headers={'Authorization': f'Basic {secret}'}).json()
@@ -89,8 +92,6 @@ stats='/api/v1/users/current/stats'
 weekly_stats = '/api/v1/stats/last_7_days'
 today_status_bar = '/api/v1/users/current/status_bar/today'
 
-
-#res = requests.get(base_url+today_status_bar,headers={'Authorization': f'Basic {secret}'})
 
 if __name__ == "__main__":
     get_stats()
