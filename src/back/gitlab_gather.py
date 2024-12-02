@@ -128,11 +128,10 @@ def main():
     stats = {
         'commits': len(own_commits),
         'total merges': len(merges),
-        'issues created': issue_stats['statistics']['counts']['all'],
-        'issues closed': issue_stats['statistics']['counts']['closed']
+        'created issues': issue_stats['statistics']['counts']['all'],
+        'closed issues': issue_stats['statistics']['counts']['closed']
     }
-    print(stats)
-
+    return stats
 
 if __name__ == "__main__":
     main()

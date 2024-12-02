@@ -58,7 +58,12 @@ def main():
         total_commits += get_commits(r)
         total_created_issues += get_created_issues(r)
         total_closed_issues += get_closed_issues(r)
-    print(total_commits, total_created_issues, total_closed_issues)
+    stats = {
+        'total commits':total_commits,
+        'created issues': total_created_issues,
+        'closed issues': total_closed_issues
+    }
+    return stats
         
 
 if __name__ == "__main__":
