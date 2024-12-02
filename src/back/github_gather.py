@@ -50,8 +50,6 @@ def get_closed_issues(url):
     res = requests.get(url+s,params=params,headers=headers).json()
     return len(res) if len(res) is not None else 0
 
-
-
 def main():
     "main method"
     repos = get_repos()
@@ -62,7 +60,6 @@ def main():
         total_closed_issues += get_closed_issues(r)
     print(total_commits, total_created_issues, total_closed_issues)
         
-
 
 if __name__ == "__main__":
     main()
