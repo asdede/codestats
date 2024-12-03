@@ -6,9 +6,11 @@ import requests
 load_dotenv()
 name = os.getenv('gitlabname')
 email = os.getenv('gitlabemail')
+base_url = os.getenv('gitlaburl')
 secret = os.getenv('GITLABSECRET')
+
 def get_projects():
-    url = 'https://gitlab.dclabra.fi/api/v4/projects?owned=true'
+    url = f'{base_url}/api/v4/projects?owned=true'
     headers = {
         'Authorization': f'Bearer {secret}'
     }
@@ -39,7 +41,7 @@ def get_projects():
     return repo_ids
 
 def get_issues():
-    url = 'https://gitlab.dclabra.fi/api/v4/issues_statistics'
+    url = f'{base_url}/api/v4/issues_statistics'
     headers = {
         'Authorization': f'Bearer {secret}'
     }
@@ -47,7 +49,7 @@ def get_issues():
     return res.json()
 
 def get_commits(id):
-    url = f'https://gitlab.dclabra.fi/api/v4/projects/{id}/repository/commits'
+    url = f'{base_url}/api/v4/projects/{id}/repository/commits'
     headers = {
         'Authorization': f'Bearer {secret}'
     }
@@ -86,7 +88,7 @@ def get_my_commits(commits):
 
 
 def get_merges(id):
-    url = f'https://gitlab.dclabra.fi/api/v4/projects/{id}/merge_requests?state=merged'
+    url = f'{base_url}/api/v4/projects/{id}/merge_requests?state=merged'
     headers = {
         'Authorization': f'Bearer {secret}'
     }

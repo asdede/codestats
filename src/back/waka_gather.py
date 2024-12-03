@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv() # Temporary
-secret = os.getenv('SECRET')
+secret = os.getenv('WAKASECRET')
 
 base_url = 'https://wakatime.com'
 
