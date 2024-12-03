@@ -6,6 +6,8 @@ import pandas as pd
 import requests
 from plotly.subplots import make_subplots
 
+base_url = 'http://api:8000'
+#base_url = 'http://0.0.0.0:8000'
 # Page config
 st.set_page_config(
     page_title='Codestats',
@@ -15,10 +17,16 @@ st.set_page_config(
 with st.sidebar:
     st.header("Actions")
     if st.button("Export"):
-        create_pdf()
+        pdf = create_pdf()
+        st.download_button(
+            label='Download PDF',
+            data = pdf,
+            file_name='codestats_resume.pdf',
+            mime='application/pdf'
+        )
 
-gitlab_data = requests.get('http://0.0.0.0:8000/stats/gitlab').json()
-github_data = requests.get('http://0.0.0.0:8000/stats/github').json()
+gitlab_data = requests.get(f'{base_url}/stats/gitlab').json()
+github_data = requests.get(f'{base_url}/stats/github').json()
 
 
 # Test data
@@ -48,7 +56,7 @@ if "wakatime_data" not in st.session_state:
 st.session_state.os_data = None
 
 def fetch_wakatime_data():
-    d = requests.get('http://0.0.0.0:8000/stats/wakatime').json()
+    d = requests.get(f'{base_url}/stats/wakatime').json()
     st.session_state.os_data = d['systems']
     langs = d['languanges']
     df = pd.DataFrame(langs)
@@ -131,7 +139,7 @@ fetch_wakatime_data()
 
 if st.session_state.wakatime_data is not None:
     st.subheader("Coding stats")
-    data = requests.get('http://0.0.0.0:8000/stats/wakatime/hours').json()
+    data = requests.get(f'{base_url}/stats/wakatime/hours').json()
     st.markdown(f"#### **Total hours tracked: {data['time coded']}**")
     st.markdown(f"*Time tracked from {data['start date']}*")
 
