@@ -4,3 +4,5 @@ env
 
 src/back/__pycache__
 **.pyc
+**.pdf
+**.png
