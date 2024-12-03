@@ -1,6 +1,7 @@
 import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
+from back.create_pdf import create_pdf
 import pandas as pd
 import requests
 from plotly.subplots import make_subplots
@@ -10,6 +11,11 @@ st.set_page_config(
     page_title='Codestats',
     layout='centered',
 )
+
+with st.sidebar:
+    st.header("Actions")
+    if st.button("Export"):
+        create_pdf()
 
 gitlab_data = requests.get('http://0.0.0.0:8000/stats/gitlab').json()
 github_data = requests.get('http://0.0.0.0:8000/stats/github').json()

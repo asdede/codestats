@@ -1,8 +1,13 @@
 import streamlit as st
 import json
-
+from back.create_pdf import create_pdf
 # JSON file name
 FILENAME = "skills.json"
+
+with st.sidebar:
+    st.header("Actions")
+    if st.button("Export"):
+        create_pdf()
 
 # Function to read JSON data
 def read_from_file(filename):
