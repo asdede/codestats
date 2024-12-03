@@ -4,8 +4,11 @@ import requests
 import pandas as pd
 import plotly.io as pio
 
-def fetch_wakatime_data():
-    d = requests.get('http://0.0.0.0:8000/stats/wakatime').json()
+base_url = 'http://api:8000'
+#base_url = 'http://0.0.0.0:8000'
+
+def create_wakatime_plot():
+    d = requests.get(f'{base_url}/stats/wakatime').json()
     langs = d['languanges']
     df = pd.DataFrame(langs)
     df_most_used = df.nlargest(3,'hours')
@@ -76,4 +79,4 @@ def fetch_wakatime_data():
 
 
 if __name__=='__main__':
-    fetch_wakatime_data()
+    create_wakatime_plot()
