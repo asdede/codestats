@@ -26,3 +26,8 @@ def get_wakatime_stats():
 def get_wakatime_hours():
     data = read_json('wakatime_hours.json')
     return data
+
+@app.get('/skills')
+def get_skills():
+    data = read_json('skills.json')
+    return data
