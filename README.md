@@ -18,6 +18,7 @@ GITHUBSECRET=
 GITLABSECRET=
 gitlabname=
 gitlabemail=
+gitlaburl=
 ```
 
 *Now your env should look like this*
