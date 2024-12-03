@@ -3,5 +3,6 @@ fastapi[standard]
 python-dotenv
 streamlit
 plotly
-fpdf
+fpdf2
 pandas
+kaleido

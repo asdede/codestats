@@ -1,8 +1,13 @@
 import streamlit as st
 import json
-
+from back.create_pdf import create_pdf
 # JSON file name
-FILENAME = "inputs_with_categories.json"
+FILENAME = "skills.json"
+
+with st.sidebar:
+    st.header("Actions")
+    if st.button("Export"):
+        create_pdf()
 
 # Function to read JSON data
 def read_from_file(filename):
@@ -31,7 +36,7 @@ if "inputs" not in st.session_state:
 if "categories" not in st.session_state:
     st.session_state.categories = list(
         {entry["category"] for entry in st.session_state.inputs if entry.get("category")} | 
-        {"Data Manipulation", "Deep Learning", "Add New..."}
+        {"Data Manipulation", "Deep Learning", "Machine Learning","Databases", "Add New..."}
     )
 
 # Track the last used category
@@ -52,7 +57,11 @@ def add_new_row():
 # Function to delete a row
 def delete_row(index):
     st.session_state.inputs.pop(index)
-
+if st.button("💾 Save"):
+    # Save and reset all rows to non-editable after saving
+    for input_obj in st.session_state.inputs:
+        input_obj["editable"] = False
+    save_to_file(st.session_state.inputs, FILENAME)
 # Add a new input field at the top
 if st.button("➕ Add New"):
     add_new_row()
@@ -122,8 +131,4 @@ for index in sorted(to_delete_indices, reverse=True):
     delete_row(index)
 
 # Save button to persist data to JSON file
-if st.button("💾 Save"):
-    # Save and reset all rows to non-editable after saving
-    for input_obj in st.session_state.inputs:
-        input_obj["editable"] = False
-    save_to_file(st.session_state.inputs, FILENAME)
+

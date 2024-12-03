@@ -1,3 +1,8 @@
 .env
 env
 **.json
+
+src/back/__pycache__
+**.pyc
+**.pdf
+**.png
