@@ -8,8 +8,9 @@ from io import BytesIO
 base_url = 'http://api:8000'
 #base_url = 'http://0.0.0.0:8000'
 
-create_wakatime_plot()
+
 def create_pdf():
+    create_wakatime_plot()
     gitlab_data = requests.get(f'{base_url}/stats/gitlab').json()
     github_data = requests.get(f'{base_url}/stats/github').json()
     wakahours = requests.get(f'{base_url}/stats/wakatime/hours').json()
