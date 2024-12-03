@@ -5,11 +5,6 @@ App that shows programming stats and lets you import it as pdf
 
 ## INSTALLATION
 
-#### First steps:
-
-1. Create env `python -m venv yourenvname`
-2. activate it `. yourenvname/bin/activate`
-
 ### Setting up .env
 
 #### 1. Create .env file to root'
