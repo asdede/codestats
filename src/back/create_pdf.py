@@ -2,12 +2,19 @@ from fpdf import FPDF
 import matplotlib.pyplot as plt
 import requests
 from collections import defaultdict
+from back.plot_maker import create_wakatime_plot
+from io import BytesIO
+
+base_url = 'http://api:8000'
+#base_url = 'http://0.0.0.0:8000'
+
+create_wakatime_plot()
 def create_pdf():
-    gitlab_data = requests.get('http://0.0.0.0:8000/stats/gitlab').json()
-    github_data = requests.get('http://0.0.0.0:8000/stats/github').json()
-    wakahours = requests.get('http://0.0.0.0:8000/stats/wakatime/hours').json()
-    waka_stats = requests.get('http://0.0.0.0:8000/stats/wakatime').json()
-    skills = requests.get('http://0.0.0.0:8000/skills').json()
+    gitlab_data = requests.get(f'{base_url}/stats/gitlab').json()
+    github_data = requests.get(f'{base_url}/stats/github').json()
+    wakahours = requests.get(f'{base_url}/stats/wakatime/hours').json()
+    waka_stats = requests.get(f'{base_url}/stats/wakatime').json()
+    skills = requests.get(f'{base_url}/skills').json()
     systems = waka_stats['systems']
     editors = waka_stats['editors']
     daily_avg = waka_stats['daily average']
@@ -15,7 +22,7 @@ def create_pdf():
     skills_by_category = defaultdict(list)
     for skill in skills:
         skills_by_category[skill["category"]].append(skill)
-    print(skills_by_category)
+    #print(skills_by_category)
     total = {
         'commits':gitlab_data['commits'] + github_data['total commits'],
         'created issues': github_data['created issues']+ gitlab_data['created issues'],
@@ -218,6 +225,8 @@ def create_pdf():
 
 
     # Save PDF
-    pdf.output('coding_stats_resume.pdf', 'F')
-
-    print("PDF with charts generated successfully!")
+    #pdf.output('coding_stats_resume.pdf', 'F')
+    pdf_buffer = BytesIO()
+    pdf.output(pdf_buffer)
+    pdf_buffer.seek(0)
+    return pdf_buffer.getvalue()

@@ -4,8 +4,27 @@ services:
   api:
     build:
       context: .
-      dockerfile: src/back/Api.Dockerfile
+      dockerfile: src/back/dockerfiles/Api.Dockerfile
     container_name: codestats_api
     working_dir: /app
     ports:
       - "8000:8000"
+    networks:
+      - shared_network
+
+  app:
+    build:
+      context: .
+      dockerfile: src/back/dockerfiles/App.Dockerfile
+    container_name: codestats_app
+    working_dir: /app
+    ports:
+      - "8501:8501"
+    depends_on:
+      - api
+    networks:
+      - shared_network
+
+networks:
+  shared_network:
+    driver: bridge

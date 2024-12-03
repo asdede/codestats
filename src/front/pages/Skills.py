@@ -2,32 +2,41 @@ import streamlit as st
 import json
 from back.create_pdf import create_pdf
 import uuid
+import requests
+
+
+base_url = 'http://api:8000'
+#base_url = 'http://0.0.0.0:8000'
 # JSON file name
 FILENAME = "skills.json"
 
 with st.sidebar:
     st.header("Actions")
     if st.button("Export"):
-        create_pdf()
-
+        pdf = create_pdf()
+        st.download_button(
+            label='Download PDF',
+            data = pdf,
+            file_name='resume.pdf',
+            mime='application/pdf'
+        )
+skills_url = f'{base_url}/skills'
 # Function to read JSON data
 def read_from_file(filename):
-    try:
-        with open(filename, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except FileNotFoundError:
-        return []  # Return an empty list if the file does not exist
-    except json.JSONDecodeError:
+    res = requests.get(skills_url)
+    if res.status_code != 200 or len(res.json()) == 0:
         return []
+    return res.json()
+
+
 
 # Function to save data to a JSON file
 def save_to_file(data, filename):
-    try:
-        with open(filename, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=4)
-        st.success(f"Data successfully saved to {filename}")
-    except Exception as e:
-        st.error(f"An error occurred while saving: {e}")
+    skill_data = [{"uuid": item["uuid"], "key": item["key"],
+                "value": item["value"], "category": item["category"],
+                "editable": item["editable"]} for item in data]
+    
+    requests.post(f'{base_url}/skills/add',json=skill_data)
 
 # Initialize session state for inputs
 if "inputs" not in st.session_state:

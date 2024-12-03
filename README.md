@@ -1,3 +1,5 @@
+>When you run `docker compose up --build` for the first time, it takes around 2 minutes for your stats to show up, since gathering data takes a long time
+
 # codestats
 App that shows programming stats and lets you import it as pdf
 
