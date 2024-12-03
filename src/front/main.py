@@ -119,8 +119,8 @@ def fetch_wakatime_data():
 #st.header("Insert your wakatime api key")
 #user_input = st.text_input(label='your wakatime api-key')
 
-
-st.button(label="Fetch wakatime data",on_click=fetch_wakatime_data)
+fetch_wakatime_data()
+#st.button(label="Fetch wakatime data",on_click=fetch_wakatime_data)
 #export_data = user_input
 
 if st.session_state.wakatime_data is not None:
