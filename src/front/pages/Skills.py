@@ -11,7 +11,6 @@ base_url = 'http://api:8000'
 FILENAME = "skills.json"
 
 with st.sidebar:
-    st.header("Actions")
     if st.button("Export"):
         pdf = create_pdf()
         st.download_button(
@@ -83,7 +82,7 @@ if st.button("➕ Add New"):
     add_new_row()
 
 # Display input fields
-st.subheader("Inputs")
+st.subheader("Skills")
 to_delete_indices = []  # Collect indices of rows to delete
 for i, input_obj in enumerate(st.session_state.inputs):
     cols = st.columns([2, 1, 0.5, 0.5])  # Adjust layout for buttons

@@ -15,7 +15,6 @@ st.set_page_config(
 )
 
 with st.sidebar:
-    st.header("Actions")
     if st.button("Export"):
         pdf = create_pdf()
         st.download_button(

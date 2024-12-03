@@ -76,7 +76,3 @@ def create_wakatime_plot():
     )
     # Save the figure as an image (PNG format)
     fig.write_image("wakatime_plot.png")  # You can change the format here (e.g., .jpg, .pdf)
-
-
-if __name__=='__main__':
-    create_wakatime_plot()
