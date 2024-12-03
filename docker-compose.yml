@@ -1,0 +1,11 @@
+
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: src/back/Api.Dockerfile
+    container_name: codestats_api
+    working_dir: /app
+    ports:
+      - "8000:8000"
