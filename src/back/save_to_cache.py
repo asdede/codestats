@@ -16,18 +16,18 @@ def save_to_json(data,f_name):
 
 def main():
     print("Getting github data")
-    #hub_data = hub_main()
+    hub_data = hub_main()
     print("Getting gitlab data")
-    #lab_data = lab_main()
+    lab_data = lab_main()
     print("Getting wakatime stats")
-    #waka_data = get_stats()
+    waka_data = get_stats()
     waka_hours = get_all_time_data()
 
 
     print("Saving to json")
-    #save_to_json(hub_data,'github.json')
-    #save_to_json(lab_data,'gitlab.json')
-    #save_to_json(waka_data,'wakatime.json')
+    save_to_json(hub_data,'github.json')
+    save_to_json(lab_data,'gitlab.json')
+    save_to_json(waka_data,'wakatime.json')
     save_to_json(waka_hours,'wakatime_hours.json')
     print("Done!")
     
