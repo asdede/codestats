@@ -2,5 +2,7 @@
 # Cache refresh script
 
 echo "Refreshing cache at $(date)" >> /app/cache.log
-python ./src/back/save_to_cache.py
+
+/usr/local/bin/python3 /app/src/back/save_to_cache.py
+
 echo "Cache refreshed!"
