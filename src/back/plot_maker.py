@@ -3,7 +3,6 @@ from plotly.subplots import make_subplots
 import requests
 import pandas as pd
 import plotly.io as pio
-import matplotlib.pyplot as plt
 
 def fetch_wakatime_data():
     d = requests.get('http://0.0.0.0:8000/stats/wakatime').json()
