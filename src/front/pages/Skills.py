@@ -16,7 +16,7 @@ with st.sidebar:
         st.download_button(
             label='Download PDF',
             data = pdf,
-            file_name='resume.pdf',
+            file_name='codestats_resume.pdf',
             mime='application/pdf'
         )
 skills_url = f'{base_url}/skills'

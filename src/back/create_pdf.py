@@ -158,7 +158,7 @@ def create_pdf():
     pdf.ln(15)
     pdf.cell(0,10, 'Programming overview',ln=2,align='C')
 
-    pdf.image('wakatime_plot.png', x=0, y=120, w=210)
+    pdf.image('wakatime_plot.png', x=5, y=120, w=200)
     pdf.line(65, 120, 146, 120)
     pdf.add_page()
     pdf.image('pie.png',x=0,y=10,w=210)
@@ -169,36 +169,28 @@ def create_pdf():
 
     pdf.ln(10)
 
-    # Set header font and size
+        # Set header font and size
     pdf.set_font('Arial', 'B', 12)
 
     categories = sorted(set(skill["category"] for skill in skills))  # Extract and sort categories
 
     # Define constants
-    column_width = 95  # Width of each column (half of 190 page width)
-    line_height = 10   # Height for each row
-    spacing = 5        # Space between categories and rows
+    column_width = 63  # Width of each column (190 page width divided by 3, minus some margin)
+    line_height = 5   # Height for each row
+    spacing = 5       # Space between categories and rows
 
     # Initialize position trackers
-    left_y = pdf.get_y()  # Y position for the left column
-    right_y = pdf.get_y()  # Y position for the right column
-
-    pdf.set_font('Arial', 'B', 12)
+    y_positions = [pdf.get_y()] * 3  # Track Y positions for three columns
+    x_positions = [10, 73, 136]  # X positions for the three columns
 
     for i, category in enumerate(categories):
-        # Determine the column: left (even index) or right (odd index)
-        if i % 2 == 0:
-            # Left column
-            x_position = 10
-            current_y = left_y
-        else:
-            # Right column
-            x_position = 105
-            current_y = right_y
+        # Determine the current column index (0, 1, or 2)
+        col_index = i % 3
 
         # Set X and Y position for the column
-        pdf.set_xy(x_position, current_y)
+        pdf.set_xy(x_positions[col_index], y_positions[col_index])
         pdf.set_font('Arial', 'B', 12)
+
         # Add the category header
         pdf.cell(column_width, line_height, category, 0, 1, 'C')  # Category header, centered
 
@@ -208,21 +200,16 @@ def create_pdf():
         # Render skills for the category
         for skill in skills:
             if skill["category"] == category:
-                pdf.set_x(x_position)  # Ensure correct column alignment
+                pdf.set_x(x_positions[col_index])  # Ensure correct column alignment
                 pdf.cell(column_width, line_height, skill["value"], 0, 1, 'C')  # Skill value
 
-        # Update the vertical position tracker for the column
-        if i % 2 == 0:
-            left_y = pdf.get_y()  # Update left column Y
-        else:
-            right_y = pdf.get_y()  # Update right column Y
+        # Update the vertical position tracker for the current column
+        y_positions[col_index] = pdf.get_y()
 
-            # After both columns are processed, move to the next row
-            # Align to the maximum Y position of the two columns
-            new_row_y = max(left_y, right_y) + spacing
-            left_y = right_y = new_row_y  # Reset both to the new row's starting position
-
-            # Add spacing between rows of categories
+        # After processing all columns, align to the maximum Y position of the row if all columns are used
+        if col_index == 2:
+            new_row_y = max(y_positions) + spacing
+            y_positions = [new_row_y] * 3  # Reset all columns to the new row's starting position
             pdf.set_y(new_row_y)
 
 
