@@ -65,14 +65,14 @@ def create_wakatime_plot():
     # Update layout
     fig.update_layout(
         height=600,  # Adjust height for stacked layout
-        width=800,   # Keep it proportional
+        width=750,   
         title="",
         showlegend=False,
         xaxis_title="Hours",
-        yaxis_title="Languages",
+        yaxis_title="",
         title_font_size=24,
         margin=dict(l=50, r=50, t=50, b=50),
-        font=dict(size=16)
+        font=dict(size=12)
     )
     # Save the figure as an image (PNG format)
     fig.write_image("wakatime_plot.png")  # You can change the format here (e.g., .jpg, .pdf)
