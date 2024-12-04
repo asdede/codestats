@@ -1,3 +1,7 @@
+**Important**
+
+At the moment this only works if you have github and gitlab profiles.
+
 >When you run `docker compose up --build` for the first time, it takes around 2 minutes for your stats to show up, since gathering data takes a long time
 
 # codestats
