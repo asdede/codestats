@@ -40,21 +40,22 @@ def create_pdf():
         labels_1 = list(systems.keys())
         sizes_1 = [systems[system]["percent"] for system in labels_1]
         #text_1 = [systems[system]["text"] for system in labels_1]
-        colors_1 = ['#66b3ff', '#99ff99']  # Colors for the slices
-        explode_1 = (0.1, 0)  # explode the first slice
+        #colors_1 = ['#66b3ff', '#99ff99']  # Colors for the slices
+        explode_1 = [0.1] + [0] * (len(labels_1) - 1)
+        explode_1 = tuple(explode_1)  # Convert to tuple
 
         # Data for the outer pie chart (Editor usage)
 
         labels_2 = list(editors.keys())
         sizes_2 = [editors[editor]["hours numeral"] for editor in labels_2]
-        colors_2 = ['#ff9999', '#66b3ff', '#ffcc99', '#c2f0c2']
-        explode_2 = (0.1, 0)  # explode the first slice
+        explode_2 = [0.1] + [0] * (len(labels_2) - 1)
+        explode_2 = tuple(explode_2)  # Convert to tuple
 
         # Create a figure with two subplots (side by side)
         fig, axes = plt.subplots(1, 2, figsize=(16, 8))  # 1 row, 2 columns
 
         # Inner pie chart (System usage) on the first subplot
-        axes[0].pie(sizes_1, explode=explode_1, labels=labels_1, colors=colors_1,
+        axes[0].pie(sizes_1, explode=explode_1, labels=labels_1,
                     autopct='%1.1f%%', shadow=True, startangle=90, pctdistance=0.85,
                     textprops={'fontsize': 14})  # Increase font size
         axes[0].axis('equal')  # Equal aspect ratio ensures the pie is drawn as a circle
@@ -63,7 +64,7 @@ def create_pdf():
 
 
         # Outer pie chart (Editor usage) on the second subplot
-        axes[1].pie(sizes_2, explode=explode_2, labels=labels_2, colors=colors_2,
+        axes[1].pie(sizes_2, explode=explode_2, labels=labels_2,
                     autopct='%1.1f%%', shadow=True, startangle=90, pctdistance=0.85,
                     textprops={'fontsize': 14})  # Increase font size
         axes[1].axis('equal')  # Equal aspect ratio ensures the pie is drawn as a circle
